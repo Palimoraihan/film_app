@@ -8,7 +8,4 @@ abstract class MovieRepository {
   Future<Result<List<Movie>>> getUpcoming({int page = 1});
   Future<Result<MovieDetail>> getDetail({required int id});
   Future<Result<List<Actor>>> getactors({required int id});
-
-
-
 }

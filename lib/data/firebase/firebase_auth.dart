@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:film_app/data/repository/auth.dart';
 import 'package:film_app/domain/entities/result.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
@@ -11,10 +9,7 @@ class FirebaseAuths implements Auth {
       : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
 
   @override
-  String? getLoggedUserId() {
-    // TODO: implement getLoggedUserId
-    throw UnimplementedError();
-  }
+  String? getLoggedUserId() => _firebaseAuth.currentUser?.uid;
 
   @override
   Future<Result<String>> login(
@@ -30,15 +25,24 @@ class FirebaseAuths implements Auth {
   }
 
   @override
-  Future<Result<void>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<Result<void>> logout() async {
+    await _firebaseAuth.signOut();
+    if (_firebaseAuth.currentUser == null) {
+      return const Result.success(null);
+    } else {
+      return const Result.failed('Logout Filed');
+    }
   }
 
   @override
   Future<Result<String>> register(
-      {required String email, required String password}) {
-    // TODO: implement register
-    throw UnimplementedError();
+      {required String email, required String password}) async {
+    try {
+      var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return Result.success(userCredential.user!.uid);
+    } on firebase_auth.FirebaseException catch (e) {
+      return Result.failed('${e.message}');
+    }
   }
 }

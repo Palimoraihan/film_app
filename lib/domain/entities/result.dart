@@ -7,7 +7,7 @@ sealed class Result<T> {
   bool get isSuccess => this is Success<T>;
   bool get isFailed => this is Failed<T>;
 
-  T? get ResultValue => isSuccess ? (this as Success<T>).value : null;
+  T? get resultValue => isSuccess ? (this as Success<T>).value : null;
   String? get errorMessage => isFailed ? (this as Failed<T>).message : null;
 }
 

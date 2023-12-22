@@ -6,4 +6,7 @@ abstract interface class Auth {
 
   Future<Result<String>> login(
       {required String email, required String password});
+
+  Future<Result<void>> logout();
+  String? getLoggedUserId();
 }

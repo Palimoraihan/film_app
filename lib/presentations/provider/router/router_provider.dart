@@ -1,3 +1,5 @@
+import 'package:film_app/domain/entities/movie.dart';
+import 'package:film_app/presentations/page/detail_page/detail_page.dart';
 import 'package:film_app/presentations/page/login_page/login_page.dart';
 import 'package:film_app/presentations/page/main_page/main_page.dart';
 import 'package:film_app/presentations/page/register_page/register_page.dart';
@@ -14,7 +16,7 @@ Raw<GoRouter> router(RouterRef ref) => GoRouter(
       GoRoute(
         path: '/main',
         name: 'main',
-        builder: (context, state) => MainPage(),
+        builder: (context, state) => const MainPage(),
       ),
       GoRoute(
         path: '/login',
@@ -24,6 +26,11 @@ Raw<GoRouter> router(RouterRef ref) => GoRouter(
        GoRoute(
         path: '/register',
         name: 'register',
-        builder: (context, state) => RegisterPage(),
+        builder: (context, state) => const RegisterPage(),
+      ),
+      GoRoute(
+        path: '/detail',
+        name: 'detail',
+        builder: (context, state) => DetailPage (movie: state.extra as Movie),
       ),
     ]);

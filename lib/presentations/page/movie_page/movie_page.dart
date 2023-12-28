@@ -1,6 +1,6 @@
-
 import 'package:film_app/presentations/misc/method.dart';
 import 'package:film_app/presentations/provider/movie/upcoming_provider.dart';
+import 'package:film_app/presentations/provider/router/router_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -28,19 +28,24 @@ class MoviePage extends ConsumerWidget {
             verticalSpace(40),
             searchBarWidget(context),
             verticalSpace(24),
-            ...movieList(context,
+            ...movieList(
+              context,
               title: 'Now Playing',
               movies: ref.watch(nowPlayingProvider),
-              onTap: (movie) {},
+              onTap: (movie) {
+                ref.read(routerProvider).pushNamed('detail', extra: movie);
+              },
             ),
+            verticalSpace(24),
             ...promotionList(promosionFileImageName, context),
             verticalSpace(24),
-
-            ...movieList(context,
+            ...movieList(
+              context,
               title: 'Upcoming',
               movies: ref.watch(upcomingProvider),
               onTap: (movie) {},
             ),
+            verticalSpace(80)
           ],
         )
       ],

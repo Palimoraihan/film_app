@@ -13,5 +13,22 @@ List<Widget> promotionList(
               .copyWith(fontWeight: FontWeight.bold),
         ),
       ),
-      SingleChildScrollView(scrollDirection: Axis.horizontal, child: Row(),)
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: promotionImageFile
+              .map(
+                (fileImage) => Container(
+                  width: 240,
+                  height: 160,
+                  margin: EdgeInsets.only(left: fileImage==promotionImageFile.first?24:10, right: fileImage==promotionImageFile.last?24:0),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage('assets/image/$fileImage')),
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+      ),
     ];
